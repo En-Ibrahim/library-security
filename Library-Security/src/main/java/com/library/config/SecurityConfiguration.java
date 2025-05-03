@@ -29,7 +29,7 @@ public class SecurityConfiguration {
          http.csrf(csrf-> csrf.disable())
                  .authorizeHttpRequests(auth->
                          auth.requestMatchers("/api/auth/**","/api/users").permitAll()
-                                 .requestMatchers(HttpMethod.GET,"/api/books/**").hasAnyRole("USER","AUTHOR")
+                                 .requestMatchers(HttpMethod.GET,"/api/books").hasAnyRole("USER","AUTHOR")
                                  .requestMatchers("/api/books/**").hasRole("AUTHOR")
                                  .anyRequest().authenticated()
                          )

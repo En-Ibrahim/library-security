@@ -4,6 +4,8 @@ package com.library.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,12 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-
+    private Logger logger= LoggerFactory.getLogger(JwtService.class);
     private final String SECRET_KEY="p5MMtEEczlSZZBV8tKZ5C3%K%zvcg1RzYj6qB$1L2y$6OpNGxs^wP&OhUirm1ln&Om%NDwDyKRNxer4SK%e62wFr*ZRE0Um2r@M6*iWazJpEPvbP!trAkt5EY8QJC0P34B4JvA5!RCG1Fcn4tOUF!PaFtta@Gd0nEqE?TzXMMcGxY8MvOtbV04QEbyP&GD%?aaek^3hQ&D9BjMfZc@NdPHaL9E@0s%!LLxmy56d1z4fhS1*wC0kYz9RVlWVD@8&g";
 
     public String generateToken(UserDetails userDetails){
         String authority = userDetails.getAuthorities().stream().findFirst().get().getAuthority();
-        System.out.println("Claim = " + authority);
+        logger.info("Claim = " + authority);
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
