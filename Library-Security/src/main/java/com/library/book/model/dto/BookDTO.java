@@ -1,6 +1,7 @@
-package com.library.book.model;
+package com.library.book.model.dto;
 
 
+import com.library.user.model.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class BookDTO {
 
+
     private String tittle;
-    private String author;
+
+    private UserDto author;
+
+    private String authorName;
+
+    private String description;
 
 }

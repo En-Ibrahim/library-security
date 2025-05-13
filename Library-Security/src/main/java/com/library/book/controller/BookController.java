@@ -2,6 +2,8 @@ package com.library.book.controller;
 
 
 import com.library.book.model.Book;
+import com.library.book.model.dto.BookDTO;
+import com.library.book.model.mapper.BookMapping;
 import com.library.book.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,21 +20,25 @@ public class BookController {
 
     private final BookService bookService;
 
+    private BookMapping bookMapping;
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<?> getAllBooks() {
+
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
     @PostMapping
     @PreAuthorize("hasRole('AUTHOR')")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+    public ResponseEntity<?> addBook(@RequestBody Book book) {
+
         return ResponseEntity.ok(bookService.addBook(book));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('AUTHOR')")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
-        return ResponseEntity.ok(bookService.updateBook(id, book));
+    public ResponseEntity<?> updateBook( @RequestBody Book book) {
+
+        return ResponseEntity.ok(bookService.updateBook( book));
     }
 
     @DeleteMapping("/{id}")
