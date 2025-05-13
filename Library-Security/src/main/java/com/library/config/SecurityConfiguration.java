@@ -23,12 +23,15 @@ public class SecurityConfiguration {
     private AuthenticationProvider  authenticationProvider;
     @Autowired
     private JwtAuthenticationFilter jwtAuthFilter;
+    private String[] WHITELIST={"/api/auth/**","/api/users",
+            "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
+                };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
          http.csrf(csrf-> csrf.disable())
                  .authorizeHttpRequests(auth->
-                         auth.requestMatchers("/api/auth/**","/api/users").permitAll()
+                         auth.requestMatchers(WHITELIST).permitAll()
                                  .requestMatchers(HttpMethod.GET,"/api/books").hasAnyRole("USER","AUTHOR")
                                  .requestMatchers("/api/books/**").hasRole("AUTHOR")
                                  .anyRequest().authenticated()
